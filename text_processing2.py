@@ -2,6 +2,7 @@
 # Test Processing II  #
 #######################
 
+import re
 
 def digits_to_words(input_string):
     """
@@ -28,9 +29,24 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+
+    num_dic = {'1':'one', '2':'two', '3':'three', '4':'four', '5':'five', '6':'six', '7':'seven', '8':'eight', '9':'nine', '0': 'zero'}
+    extr_num = re.findall("\d", input_string)
+    
+    result = ""
+
+    for i in range(len(extr_num)):
+        result += num_dic[extr_num[i]]
+        result += " "
+    
+    print(result)
+
+    digit_string = result.strip()
     return digit_string
 
+
+#a = "Zip Code: 19104"
+#digits_to_words(a)
 
 """
 컴퓨터 프로그래밍에 많은 명명 규칙이 있지만, 두 규칙이 특히 흔히 쓰입니다. 
@@ -64,5 +80,28 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+
+    split_str = underscore_str.split('_')
+    split_str = [v for v in split_str if v]
+
+    camelcase_str = ''
+
+    if len(split_str) == 1:
+        return split_str[0]
+    else:
+        for i, w in enumerate(split_str):
+            if i == 0:
+                camelcase_str += w.lower()
+            else:
+                word = w[0].upper() + w[1:].lower()
+                camelcase_str += word
+
+    print(camelcase_str)
+
+    #camelcase_str = None
     return camelcase_str
+
+a = '__EXAMPLE__NAME__'
+a = 'to_camel_case'
+a = 'alreadyCamel'
+to_camel_case(a)
